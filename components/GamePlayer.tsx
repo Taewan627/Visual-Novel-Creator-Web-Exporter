@@ -63,6 +63,7 @@ const CharacterSprite: React.FC<CharacterSpriteProps> = ({ character, isSpeaking
                 src={imageUrl} 
                 alt={character.name}
                 className="max-h-full max-w-none object-contain drop-shadow-[0_5px_15px_rgba(0,0,0,0.7)]"
+                onError={(e) => e.currentTarget.style.display = 'none'}
             />
         </div>
     );
@@ -161,7 +162,7 @@ const GameplayScreen: React.FC<GameplayScreenProps> = ({ vn, currentSceneId, onC
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-                style={{ backgroundImage: `url(${currentScene.backgroundUrl})` }}
+                style={{ backgroundImage: currentScene.backgroundUrl ? `url(${currentScene.backgroundUrl})` : 'none' }}
             >
                 <div className="absolute inset-0 bg-black/20"></div>
             </div>

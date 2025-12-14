@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SaveIcon, DownloadIcon, UploadIcon, ResetIcon, PlayIcon, WebIcon } from './icons';
 
@@ -22,7 +23,10 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <header className="flex-shrink-0 bg-gray-900 p-2 flex items-center justify-between shadow-md z-10">
-      <h1 className="text-xl font-bold text-white">비주얼 노벨 크리에이터</h1>
+      <div className="flex flex-col md:flex-row md:items-baseline gap-0 md:gap-3 ml-1">
+        <h1 className="text-xl font-bold text-white tracking-tight">VN-AI Studio</h1>
+        <span className="text-xs text-gray-400 font-medium">Created by Tae-wan Kim</span>
+      </div>
       <div className="flex items-center gap-2">
         <button onClick={onSave} className="flex items-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded transition-colors" title="브라우저 임시 저장 (쿠키)">
           <SaveIcon className="w-5 h-5" /> <span className="hidden sm:inline">임시 저장</span>

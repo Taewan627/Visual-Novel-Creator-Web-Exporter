@@ -101,6 +101,7 @@ const WEB_GAME_SCRIPT = `
                 const img = document.createElement('img');
                 img.src = expr.imageUrl;
                 img.className = 'character-sprite';
+                img.onerror = function() { this.style.display = 'none'; }; // Hide if broken
                 
                 // Style positioning
                 const total = presentChars.length;
@@ -300,6 +301,9 @@ export function exportToHtml(vn: VisualNovel): string {
   const startScene = vn.scenes.find(s => s.id === vn.startSceneId);
   const titleBgUrl = vn.coverUrl || (startScene ? startScene.backgroundUrl : '');
   
+  // Conditionally create style string. If no URL, don't set background-image.
+  const titleBgStyle = titleBgUrl ? `background-image: url('${titleBgUrl}');` : 'background-color: #000;';
+  
   return `
 <!DOCTYPE html>
 <html lang="ko">
@@ -317,7 +321,7 @@ export function exportToHtml(vn: VisualNovel): string {
         
         <!-- Title Screen -->
         <div id="title-screen" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('${titleBgUrl}'); filter: brightness(0.4) blur(2px);"></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="${titleBgStyle} filter: brightness(0.4) blur(2px);"></div>
             <div class="z-10 text-center p-8 animate-fade-in max-w-4xl">
                 <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg tracking-tight">${vn.title}</h1>
                 ${vn.description ? `<p class="text-xl text-gray-200 mb-12 drop-shadow-md leading-relaxed">${vn.description}</p>` : ''}
